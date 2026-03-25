@@ -1,3 +1,6 @@
-git+https://github.com/huggingface/transformers.git
-pre-commit>=4.2.0
-accelerate>=1.10.1
+transformers>=5.3.0
+pre-commit>=4.5.1
+accelerate>=1.13.0
+
+# vllm>=0.18.0
+# sglang>=0.5.9

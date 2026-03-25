@@ -1,39 +1,64 @@
-default_install_hook_types:
-  - pre-commit
-  - commit-msg
-
-exclude: '(^examples/)|(^glmv_reward/)'
+default_stages: [pre-commit, pre-push, manual]
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: v5.0.0
     hooks:
+      - id: check-symlinks
+      - id: destroyed-symlinks
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-toml
+      - id: check-ast
       - id: check-added-large-files
       - id: check-merge-conflict
-      - id: check-toml
-      - id: check-json
-      - id: pretty-format-json
-        args: ["--autofix"]
-      - id: mixed-line-ending
+      - id: check-shebang-scripts-are-executable
+      - id: detect-private-key
+      - id: debug-statements
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.7
+    hooks:
+      - id: ruff
+        args:
+          - --select=I,F401,F821
+          - --fix
 
   - repo: https://github.com/psf/black
-    rev: 26.3.1
+    rev: 24.10.0
     hooks:
       - id: black
-        language_version: python3
-        args: ["--line-length=88"]
+      - id: black-jupyter
+        files: \.ipynb$
 
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
     hooks:
-      - id: flake8
-        args: ["--max-line-length=88", "--extend-ignore=E203,W503,E501"]
+      - id: codespell
+        args: ['--config', '.codespellrc']
 
-  - repo: https://github.com/crate-ci/typos
-    rev: v1.44.0
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v18.1.8
     hooks:
-      - id: typos
-        args: ["--write-changes"]
+      - id: clang-format
+        types_or: [c++, cuda]
+        args: [--style=file, --verbose]
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.8.1
+    hooks:
+      - id: nbstripout
+        args:
+          - '--keep-output'
+          - '--extra-keys=metadata.kernelspec metadata.language_info.version'
+
+  - repo: local
+    hooks:
+      - id: sort-ci-permissions
+        name: sort CI_PERMISSIONS.json
+        entry: python3 .github/update_ci_permission.py --sort-only
+        language: system
+        files: ^\.github/CI_PERMISSIONS\.json$
+        pass_filenames: false
