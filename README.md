@@ -4,9 +4,9 @@
 <img src=resources/logo.svg width="15%"/>
 </div>
 <p align="center">
-    👋 Join our<a href="resources/WECHAT.md" target="_blank"> Wechat</a> or <a href="https://discord.gg/QR7SARHRxK" target="_blank">Discord</a> community.
+    👋 Join our <a href="resources/WECHAT.md" target="_blank">Wechat</a> or <a href="https://discord.gg/zFMhpMRFP" target="_blank">Discord</a> community.
     <br>
-    📖 Check out the GLM-5 <a href="https://arxiv.org/abs/2602.15763" target="_blank">technical report</a>.
+    📖 Check out the GLM-5 <a href="https://arxiv.org/abs/2602.15763" target="_blank">Technical report</a>.
     <br>
     📍 Use GLM-5 API services on <a href="https://docs.z.ai/guides/llm/glm-5">Z.ai API Platform. </a>
     <br>
@@ -50,7 +50,7 @@ vLLM, SGLang, and xLLM all support local deployment of GLM-5. A simple deploymen
     docker pull vllm/vllm-openai:v0.18.0
     ```
 
-    then upgrade transformers (version 5.3.0 or higher):
+    then upgrade transformers (version 5.4.0 or higher):
 
     ```
     pip install -U transformers
