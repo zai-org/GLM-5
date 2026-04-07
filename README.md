@@ -1,4 +1,4 @@
-# GLM-5
+# GLM-5.1 & GLM-5
 
 <div align="center">
 <img src=resources/logo.svg width="15%"/>
@@ -6,14 +6,26 @@
 <p align="center">
     👋 Join our <a href="resources/WECHAT.md" target="_blank">Wechat</a> or <a href="https://discord.gg/zFMhpMRFP" target="_blank">Discord</a> community.
     <br>
-    📖 Check out the GLM-5 <a href="https://arxiv.org/abs/2602.15763" target="_blank">Technical report</a>.
+    📖 Check out the GLM-5.1 <a href="https://z.ai/blog/glm-5.1" target="_blank">blog</a> and GLM-5 <a href="https://arxiv.org/abs/2602.15763" target="_blank">Technical report</a>.
     <br>
-    📍 Use GLM-5 API services on <a href="https://docs.z.ai/guides/llm/glm-5">Z.ai API Platform. </a>
+    📍 Use GLM-5.1 API services on <a href="https://docs.z.ai/guides/llm/glm-5.1">Z.ai API Platform. </a>
     <br>
-    👉 One click to <a href="https://chat.z.ai">GLM-5</a>.
+    🔜 <a href="https://chat.z.ai">GLM-5.1</a> will be available on chat.z.ai in the coming days.
 </p>
 
 ## Introduction
+
+### GLM-5.1
+
+GLM-5.1 is our next-generation flagship model for agentic engineering, with significantly stronger coding capabilities than its predecessor. It achieves state-of-the-art performance on SWE-Bench Pro and leads GLM-5 by a wide margin on NL2Repo (repo generation) and Terminal-Bench 2.0 (real-world terminal tasks).
+
+![bench_51](resources/bench_51.png)
+
+But the most meaningful leap goes beyond first-pass performance. Previous models—including GLM-5—tend to exhaust their repertoire early: they apply familiar techniques for quick initial gains, then plateau. Giving them more time doesn't help.
+
+GLM-5.1, by contrast, is built to stay effective on agentic tasks over much longer horizons. We've found that the model handles ambiguous problems with better judgment and stays productive over longer sessions. It breaks complex problems down, runs experiments, reads results, and identifies blockers with real precision. By revisiting its reasoning and revising its strategy through repeated iteration, GLM-5.1 sustains optimization over hundreds of rounds and thousands of tool calls. The longer it runs, the better the result.
+
+### GLM-5
 
 We are launching GLM-5, targeting complex systems engineering and long-horizon agentic tasks. Scaling is still one of the most important ways to improve the intelligence efficiency of Artificial General Intelligence (AGI). Compared to GLM-4.5, GLM-5 scales from 355B parameters (32B active) to 744B parameters (40B active), and increases pre-training data from 23T to 28.5T tokens. GLM-5 also integrates DeepSeek Sparse Attention (DSA), largely reducing deployment cost while preserving long-context capacity.
 
@@ -23,46 +35,42 @@ Reinforcement learning aims to bridge the gap between competence and excellence 
 
 GLM-5 is purpose-built for complex systems engineering and long-horizon agentic tasks. On our internal evaluation suite CC-Bench-V2, GLM-5 significantly outperforms GLM-4.7 across frontend, backend, and long-horizon tasks, narrowing the gap to Claude Opus 4.5.
 
-![realworld_bench](resources/realworld_bench.png)
-
 On [Vending Bench 2](https://andonlabs.com/evals/vending-bench-2), a benchmark that measures long-term operational capability, GLM-5 ranks \#1 among open-source models. Vending Bench 2 requires the model to run a simulated vending machine business over a one-year horizon; GLM-5 finishes with a final account balance of $4,432, approaching Claude Opus 4.5 and demonstrating strong long-term planning and resource management.
 
-![vending_bench](resources/vending_bench.png)
-
+<p align="center">
+<img src="resources/realworld_bench.png" height="350"/>
+&nbsp;&nbsp;
+<img src="resources/vending_bench.png" height="350"/>
+</p>
 ## Download Model
 
-| Model     | Download Links                                                                                                                  | Model Size | Precision |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------|------------|-----------|
-| GLM-5     | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5)         | 744B-A40B  | BF16      |
-| GLM-5-FP8 | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5-FP8)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5-FP8) | 744B-A40B  | FP8       |
+| Model       | Download Links                                                                                                                      | Model Size | Precision |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------|------------|-----------|
+| GLM-5.1     | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5.1)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5.1)         | 744B-A40B  | BF16      |
+| GLM-5.1-FP8 | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5.1-FP8)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5.1-FP8) | 744B-A40B  | FP8       |
+| GLM-5       | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5)             | 744B-A40B  | BF16      |
+| GLM-5-FP8   | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5-FP8)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5-FP8)     | 744B-A40B  | FP8       |
 
-## Serve GLM-5 Locally
+## Serve GLM-5 Series Locally
 
 ### Prepare environment
 
-vLLM, SGLang, and xLLM all support local deployment of GLM-5. A simple deployment guide is provided here.
+vLLM, SGLang, xLLM and Ktransformers all support local deployment of GLM-5 series model, A simple deployment guide is provided here.
 
 + vLLM
 
-    Using Docker (version 0.18.0 or higher):
-
+    Using Docker as:
     ```shell
-    docker pull vllm/vllm-openai:v0.18.0
-    ```
-
-    then upgrade transformers (version 5.4.0 or higher):
-
-    ```
-    pip install -U transformers
+    docker pull vllm/vllm-openai:glm51
+    docker pull vllm/vllm-openai:glm51-cu130 # For CUDA 13.0
     ```
 
 + SGLang
 
     Using Docker as:
-
-  ```bash
-    docker pull lmsysorg/sglang:glm5-hopper # For Hopper GPU
-    docker pull lmsysorg/sglang:glm5-blackwell # For Blackwell GPU
+    ```bash
+    docker pull lmsysorg/sglang:v0.5.10
+    docker pull lmsysorg/sglang:v0.5.10-cu130 # For CUDA 13.0
     ```
 
 ### Deploy
@@ -70,7 +78,7 @@ vLLM, SGLang, and xLLM all support local deployment of GLM-5. A simple deploymen
 + vLLM
 
     ```shell
-    vllm serve zai-org/GLM-5-FP8 \
+    vllm serve zai-org/GLM-5.1-FP8 \
          --tensor-parallel-size 8 \
          --gpu-memory-utilization 0.85 \
          --speculative-config.method mtp \
@@ -78,36 +86,39 @@ vLLM, SGLang, and xLLM all support local deployment of GLM-5. A simple deploymen
          --tool-call-parser glm47 \
          --reasoning-parser glm45 \
          --enable-auto-tool-choice \
-         --served-model-name glm-5-fp8
+         --served-model-name glm-5.1-fp8
     ```
-
     Check the [recipes](https://github.com/vllm-project/recipes/blob/main/GLM/GLM5.md) for more details.
 
 + SGLang
 
     ```shell
-    sglang serve \
-      --model-path zai-org/GLM-5-FP8 \
-      --tp-size 8 \
-      --tool-call-parser glm47  \
-      --reasoning-parser glm45 \
-      --speculative-algorithm EAGLE \
-      --speculative-num-steps 3 \
-      --speculative-eagle-topk 1 \
-      --speculative-num-draft-tokens 4 \
-      --mem-fraction-static 0.85 \
-      --served-model-name glm-5-fp8
+    SGLANG_ENABLE_SPEC_V2=1 sglang serve \
+        --model-path zai-org/GLM-5.1-FP8 \
+        --tp-size 8 \
+        --tool-call-parser glm47  \
+        --reasoning-parser glm45 \
+        --speculative-algorithm EAGLE \
+        --speculative-num-steps 3 \
+        --speculative-eagle-topk 1 \
+        --speculative-num-draft-tokens 4 \
+        --mem-fraction-static 0.85 \
+        --served-model-name glm-5.1-fp8
     ```
 
-    Check the [sglang cookbook](https://cookbook.sglang.io/autoregressive/GLM/GLM-5) for more details.
+    Check the [sglang cookbook](https://cookbook.sglang.io/autoregressive/GLM/GLM-5.1) for more details.
 
-+ xLLM and other Ascend NPU
++ xLLM
 
     Please check the deployment guide [here](https://github.com/zai-org/GLM-5/blob/main/example/ascend.md).
 
++ Ktransformers
+
+    Please check the deployment guide [here](https://github.com/kvcache-ai/ktransformers/blob/main/doc/en/kt-kernel/GLM-5.1-Tutorial.md).
+
 ## Citation
 
-If you find GLM-5 useful in your research, please cite our technical report:
+If you find GLM-5 series model useful in your research, please cite our technical report:
 
 ```bibtex
 @misc{glm5team2026glm5vibecodingagentic,
