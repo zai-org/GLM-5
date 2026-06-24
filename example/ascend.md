@@ -12,11 +12,11 @@ Currently, the Ascend platform already supports the deployment of GLM-5.2. Effic
 
 # vLLM
 
-This  [vLLM-Ascend](https://docs.vllm.ai/projects/ascend/en/latest/tutorials/models/GLM5.2.html) document demonstrates how to deploy GLM-5.2 on vLLM using the vLLM-Ascend plugin. It shows the main verification steps of the model, including supported features, feature configuration, environment preparation, single-node and multi-node deployment, Prefill-Decode disaggregation, accuracy and performance evaluation.
+This [vLLM-Ascend](https://docs.vllm.ai/projects/ascend/en/latest/tutorials/models/GLM5.2.html) document demonstrates how to deploy GLM-5.2 on vLLM using the vLLM-Ascend plugin. It shows the main verification steps of the model, including supported features, feature configuration, environment preparation, single-node and multi-node deployment, Prefill-Decode disaggregation, accuracy and performance evaluation.
 
 # SGLang
 
-This  [sgLang](https://github.com/sgl-project/sglang/blob/main/docs_new/docs/hardware-platforms/ascend-npus/ascend_npu_glm5.2_examples.mdx) document demonstrates how to deploy GLM-5.2 on sglang. It shows the main verification steps of the model, including supported features, feature configuration, environment preparation, single-node and multi-node deployment, accuracy and performance evaluation.
+This [sgLang](https://github.com/sgl-project/sglang/blob/main/docs_new/docs/hardware-platforms/ascend-npus/ascend_npu_glm5.2_examples.mdx) document demonstrates how to deploy GLM-5.2 on sglang. It shows the main verification steps of the model, including supported features, feature configuration, environment preparation, single-node and multi-node deployment, accuracy and performance evaluation.
 
 # xLLM
 
