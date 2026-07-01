@@ -1,5 +1,7 @@
 # GLM-5.2 & GLM-5.1 & GLM-5
 
+[![Listed on TakoAPI](https://takoapi.com/api/badge/zai-org-glm-5)](https://takoapi.com/agents/zai-org-glm-5)
+
 <div align="center">
 <img src=resources/logo.svg width="15%"/>
 </div>
