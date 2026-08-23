@@ -73,7 +73,7 @@ GLM-5 系列支持使用以下多种框架部署，欢迎尝试：
 
 - [SGLang](https://github.com/sgl-project/sglang) (v0.5.13.post1+) — 参见 [cookbook](https://cookbook.sglang.io/autoregressive/GLM/GLM-5.2)
 - [vLLM](https://github.com/vllm-project/vllm) (v0.23.0+) — 参见 [recipes](https://recipes.vllm.ai/zai-org/GLM-5.2)
-- [Transformers](https://github.com/huggingface/transformers) (v0.5.12+) — 参见 [transformers docs](https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/glm_moe_dsa.md)
+- [Transformers](https://github.com/huggingface/transformers) (v5.15.0+) — 参见 [transformers docs](https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/glm_moe_dsa.md)
 - [KTransformers](https://github.com/kvcache-ai/ktransformers) (v0.5.12+) — 参见 [tutorial](https://github.com/kvcache-ai/ktransformers/blob/main/doc/en/kt-kernel/GLM-5.2-Tutorial.md)
 - [Unsloth](https://github.com/unslothai/unsloth) (v0.1.47-beta+) — 参见 [guide](https://unsloth.ai/docs/models/glm-5.2)
 - 在 `Ascend NPU` 平台上部署时，支持 vLLM-Ascend、xLLM 、SGLang 等推理框架，参见 [这里](example/ascend.md)
