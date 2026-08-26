@@ -41,6 +41,23 @@ Add explicit guidance about the `tool_reference` response type to the system
 prompt (see `TOOL_REFERENCE_GUIDANCE` in the script). With this context,
 GLM-5.1 correctly interprets the block and invokes the referenced tool.
 
+## Supplementary test results (2026-08-26)
+
+`repro_zen_supplementary.py` runs the same deferred-tool scenario against a
+GLM-5-generation checkpoint served through OpenCode Zen (OpenAI-format
+function calling, `tool_reference` payload emulated in the tool message):
+
+| Case | Result |
+|---|---|
+| No guidance | PASS — model called `Workflow` directly |
+| With guidance | PASS |
+
+The weights handled the payload natively, suggesting the reported failure is
+specific to the `glm-5.1` checkpoint or to the Anthropic-compatible serving
+template rather than to GLM-5-generation weights generally. Official
+confirmation still requires running `repro_tool_reference.py` against
+`glm-5.1` on the Anthropic endpoint.
+
 ## Long-term fix
 
 Per the issue's suggested fix, include `tool_reference` examples from the
