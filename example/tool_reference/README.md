@@ -43,20 +43,21 @@ GLM-5.1 correctly interprets the block and invokes the referenced tool.
 
 ## Supplementary test results (2026-08-26)
 
-`repro_zen_supplementary.py` runs the same deferred-tool scenario against a
-GLM-5-generation checkpoint served through OpenCode Zen (OpenAI-format
-function calling, `tool_reference` payload emulated in the tool message):
+`repro_zen_supplementary.py` runs a faithful deferred-tool-discovery scenario
+against a GLM-5-generation checkpoint served through OpenCode Zen
+(OpenAI-format function calling): phase 1 exposes **only `ToolSearch`**, and
+`Workflow` is added to the tool set only after the `tool_reference` payload
+is injected — mirroring Claude Code's actual behavior.
 
 | Case | Result |
 |---|---|
-| No guidance | PASS — model called `Workflow` directly |
-| With guidance | PASS |
+| No guidance | **FAIL** — model acknowledged the tool is "available as a deferred tool" but did not call it |
+| With `tool_reference` guidance | PASS — model called `Workflow` directly |
 
-The weights handled the payload natively, suggesting the reported failure is
-specific to the `glm-5.1` checkpoint or to the Anthropic-compatible serving
-template rather than to GLM-5-generation weights generally. Official
-confirmation still requires running `repro_tool_reference.py` against
-`glm-5.1` on the Anthropic endpoint.
+The failure from #76 therefore **reproduces at the model level** once the
+tool set faithfully models deferred discovery. The system-prompt workaround
+resolves it. Official confirmation on `glm-5.1` via `/api/anthropic` should
+be run with `repro_tool_reference.py`.
 
 ## Long-term fix
 

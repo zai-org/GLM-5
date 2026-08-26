@@ -36,9 +36,10 @@ TOOL_RESULT = json.dumps(
     {"content": [{"type": "tool_reference", "tool_name": "Workflow"}]})
 
 
-def call(messages):
+def call(messages, tools=None):
     body = json.dumps({"model": MODEL, "max_tokens": 512,
-                       "messages": messages, "tools": TOOLS}).encode()
+                       "messages": messages,
+                       "tools": tools if tools is not None else TOOLS}).encode()
     req = urllib.request.Request(URL, data=body, headers={
         "Content-Type": "application/json", "User-Agent": "curl/8.5.0"})
     with urllib.request.urlopen(req, timeout=120) as resp:
@@ -51,19 +52,27 @@ def run(label, system=None):
              "content": "Please run the Workflow tool (use ToolSearch first if needed)."}]
     if system:
         msgs.insert(0, {"role": "system", "content": system})
-    r1 = call(msgs)
+
+    # Phase 1 mirrors deferred tool discovery: only ToolSearch is loaded.
+    r1 = call(msgs, tools=[TOOLS[0]])
     m1 = r1["choices"][0]["message"]
     tcalls = m1.get("tool_calls") or []
     search_calls = [t for t in tcalls if t["function"]["name"] == "ToolSearch"]
     if not search_calls:
-        print(f"Model went straight to: {[t['function']['name'] for t in tcalls]}")
-        print(f"Text: {(m1.get('content') or '')[:200]}")
+        names = [t["function"]["name"] for t in tcalls]
+        text = (m1.get("content") or "")[:250]
+        # Calling a not-yet-loaded Workflow would be invalid behavior here.
+        verdict = "INVALID" if "Workflow" in names else "INCONCLUSIVE"
+        print(f"ToolSearch not called; went to {names or 'text'}. Text: {text}")
+        print(f"--> {verdict}")
         return
     msgs.append(m1)
     msgs.append({"role": "tool",
                  "tool_call_id": search_calls[0]["id"],
                  "content": TOOL_RESULT})
-    r2 = call(msgs)
+
+    # Phase 2: tool_reference payload signals that Workflow is now loaded.
+    r2 = call(msgs, tools=TOOLS)
     m2 = r2["choices"][0]["message"]
     names = [t["function"]["name"] for t in (m2.get("tool_calls") or [])]
     text = (m2.get("content") or "")[:250]
